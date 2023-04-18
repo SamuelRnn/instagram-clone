@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  user
+  admin
+  god
+}
+
+model User {
+  id          String    @id @default(uuid())
+  user_name   String    @unique
+  email       String    @unique
+  password    String
+  about_me    String?
+  avatar      String?
+  role        Roles     @default(user)
+  reg_code    String?
+  active      Boolean   @default(false)
+  created_at  DateTime  @default(now())
+  modified_at DateTime  @updatedAt
+  posts       Post[]
+  likes       Like[]
+  Comment     Comment[]
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  text        String?
+  image       String
+  author      User      @relation(fields: [id_user], references: [id])
+  id_user     String
+  created_at  DateTime  @default(now())
+  modified_at DateTime  @updatedAt
+  Like        Like[]
+  Comment     Comment[]
+}
+
+model Like {
+  id          Int      @id @default(autoincrement())
+  content     Boolean
+  user        User     @relation(fields: [id_user], references: [id])
+  id_user     String
+  post        Post     @relation(fields: [id_post], references: [id])
+  id_post     Int
+  created_at  DateTime @default(now())
+  modified_at DateTime @updatedAt
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  content    String
+  author     User     @relation(fields: [id_user], references: [id])
+  id_user    String
+  post       Post     @relation(fields: [id_post], references: [id])
+  id_post    Int
+  created_at DateTime @default(now())
+}
