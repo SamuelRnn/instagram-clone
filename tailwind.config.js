@@ -13,6 +13,7 @@ module.exports = {
 			width: {
 				box: 'min(90%, 500px)',
 				form: 'min(90%, 400px)',
+				banner: 'min(90%, 1000px)',
 			},
 			height: {
 				box: '500px',

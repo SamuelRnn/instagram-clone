@@ -19,3 +19,9 @@ body {
 .post-actions {
 	@apply hover:text-zinc-600 transition-colors ease-out;
 }
+.button-light {
+	@apply bg-main-accent hover:bg-opacity-75 rounded-lg;
+}
+.button {
+	@apply bg-zinc-800 hover:bg-opacity-75 rounded-lg;
+}

@@ -57,10 +57,7 @@ export default function Register() {
 						className="input"
 						placeholder="Contraseña"
 					/>
-					<button
-						type="submit"
-						className="h-12 bg-main-accent hover:bg-opacity-75 rounded-lg mt-4"
-					>
+					<button type="submit" className="button-light h-12 mt-4">
 						Registrarte
 					</button>
 				</form>
