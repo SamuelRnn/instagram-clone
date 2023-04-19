@@ -9,3 +9,13 @@ body {
 .input {
 	@apply py-3 px-3 rounded-lg bg-transparent focus:bg-white/5 outline outline-1 outline-zinc-700;
 }
+.nav-action {
+	@apply flex gap-4 items-center hover:bg-white/5 px-4 py-3 rounded-md transition-colors ease-out cursor-pointer;
+}
+.nav-action-active {
+	@apply flex gap-4 items-center bg-main-accent px-4 py-3 rounded-md transition-colors ease-out cursor-pointer;
+}
+
+.post-actions {
+	@apply hover:text-zinc-600 transition-colors ease-out;
+}

@@ -10,10 +10,7 @@ export default function Login() {
 	const emailRef = useRef(null)
 	const pwRef = useRef(null)
 	const router = useRouter()
-	const session = useSession(state => ({
-		setUser: state.setUser,
-		user: state.user,
-	}))
+	const session = useSession()
 
 	const onSubmit = async event => {
 		event.preventDefault()
