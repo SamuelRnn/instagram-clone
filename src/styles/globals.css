@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-	@apply text-zinc-200 bg-main-black;
+	@apply text-zinc-200 bg-main-black overflow-hidden;
 }
 
 .input {
@@ -17,11 +17,23 @@ body {
 }
 
 .post-actions {
-	@apply hover:text-zinc-600 transition-colors ease-out;
+	@apply hover:text-main-accent transition-colors ease-out;
 }
 .button-light {
 	@apply bg-main-accent hover:bg-opacity-75 rounded-lg;
 }
+.button-light-variant {
+	@apply bg-main-accent-variant hover:bg-opacity-75 rounded-lg;
+}
 .button {
 	@apply bg-zinc-800 hover:bg-opacity-75 rounded-lg;
+}
+
+.custom-rotate {
+	animation: spin 3s linear infinite;
+}
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
 }

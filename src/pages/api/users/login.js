@@ -38,6 +38,7 @@ export default async function handler(req, res) {
 				user_name: user.user_name,
 				avatar: user.avatar,
 				email: user.email,
+				id: user.id,
 			},
 		})
 	}

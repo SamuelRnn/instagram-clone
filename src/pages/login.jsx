@@ -4,13 +4,16 @@ import Link from 'next/link'
 import { useRef } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useSession } from '@/store'
+import { useSessionStore } from '@/store'
 
 export default function Login() {
 	const emailRef = useRef(null)
 	const pwRef = useRef(null)
 	const router = useRouter()
-	const session = useSession()
+	const session = useSessionStore(state => ({
+		setUser: state.setUser,
+		user: state.user,
+	}))
 
 	const onSubmit = async event => {
 		event.preventDefault()
