@@ -7,7 +7,7 @@ export default function UserProfile({ user }) {
 	return (
 		<Layout>
 			<div className="pb-6 border-b border-zinc-700 w-profile mx-auto pt-12">
-				<div className="mx-auto max-w-[600px] flex gap-6 items-center">
+				<div className="mx-auto max-w-[600px] flex gap-6">
 					<Image
 						src={
 							user.avatar ??
@@ -18,7 +18,7 @@ export default function UserProfile({ user }) {
 						height={150}
 						className="rounded-full outline outline-2 outline-zinc-700 overflow-hidden min-w-[80px] sm:min-w-[150px] aspect-square "
 					/>
-					<div className="min-w-[180px]">
+					<div className="min-w-[180px] mt-2">
 						<div className="flex items-center gap-2 text-lg">
 							<h1 className="text-base sm:text-lg font-bold max-w-[128px] sm:max-w-[240px] overflow-hidden text-ellipsis">
 								{user.user_name}
@@ -31,20 +31,10 @@ export default function UserProfile({ user }) {
 						<p className="text-sm text-zinc-400">
 							{user?.posts.length} publicaciones
 						</p>
-						<p className="hidden sm:block text-sm">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-							eligendi, doloribus inventore neque unde deserunt. Incidunt qui
-							sequi quam facilis cum, maiores sit molestias omnis? Suscipit
-							perspiciatis tenetur dolorum ut?
-						</p>
+						<p className="hidden sm:block text-sm">{user.about_me}</p>
 					</div>
 				</div>
-				<p className="sm:hidden text-sm mt-4">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-					eligendi, doloribus inventore neque unde deserunt. Incidunt qui sequi
-					quam facilis cum, maiores sit molestias omnis? Suscipit perspiciatis
-					tenetur dolorum ut?
-				</p>
+				<p className="sm:hidden text-sm mt-4">{user.about_me}</p>
 			</div>
 			{/* posts container */}
 			<div className="w-full grid grid-cols-3 gap-1 mt-8 max-w-[700px] mx-auto">
@@ -52,6 +42,9 @@ export default function UserProfile({ user }) {
 					<ProfilePostPreview key={post.id} post={post} />
 				))}
 			</div>
+			{!user.posts.length && (
+				<p className="text-center text-zinc-500">No hay nada que ver aqui</p>
+			)}
 		</Layout>
 	)
 }

@@ -9,7 +9,7 @@ export default function Layout({ children }) {
 		<>
 			<div className="grid grid-cols-1 md:grid-cols-main-layout">
 				<Sidebar user={user} />
-				<main className="w-full min-h-screen">{children}</main>
+				<main className="w-full min-h-screen pb-32">{children}</main>
 			</div>
 			{!user && <RegisterBanner />}
 		</>

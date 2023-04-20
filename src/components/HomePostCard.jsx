@@ -2,6 +2,7 @@ import { AiFillHeart } from 'react-icons/ai'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { MdInsertComment } from 'react-icons/md'
 import Image from 'next/image'
+import Link from 'next/link'
 
 // modes = post | skeleton
 export default function HomePostCard({ post, skeleton = false }) {
@@ -11,13 +12,15 @@ export default function HomePostCard({ post, skeleton = false }) {
 				{skeleton ? (
 					<div className="w-10 h-10 rounded-full bg-zinc-800" />
 				) : (
-					<Image
-						src={post?.author.avatar || '/assets/logo.svg'}
-						alt="profile name"
-						width={40}
-						height={40}
-						className="rounded-full outline outline-2 outline-zinc-700 text-xs overflow-hidden grid place-content-center"
-					/>
+					<Link href={`/user/${post?.author.id}`}>
+						<Image
+							src={post?.author.avatar || '/assets/logo.svg'}
+							alt="profile name"
+							width={40}
+							height={40}
+							className="rounded-full outline outline-2 outline-zinc-700 text-xs overflow-hidden grid place-content-center"
+						/>
+					</Link>
 				)}
 				{skeleton ? (
 					<p className="h-4 w-32 bg-zinc-800 rounded-md"></p>

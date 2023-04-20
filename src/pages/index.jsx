@@ -8,7 +8,6 @@ export default function Home() {
 	useEffect(() => {
 		const getPosts = async () => {
 			const { data } = await axios.get('/api/posts')
-			// console.log(data.posts)
 			setTimeout(() => {
 				setPosts(data.posts)
 			}, 2000)
