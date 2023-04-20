@@ -1,4 +1,3 @@
-export { default as apiTokenValidation } from './apiTokenValidation'
 export { default as createToken } from './createToken'
 export * from './index'
 export { default as uploadImage } from './uploadImage'

@@ -1,6 +1,6 @@
 import verifyToken from './verifyToken'
 
-export default function ApiTokenValidation(req, res) {
+function apiTokenValidation(req, res) {
 	//--------------
 	if (!req.cookies.token) {
 		return res.status(401).json({ message: 'No autenticado' })
@@ -10,6 +10,4 @@ export default function ApiTokenValidation(req, res) {
 		return res.status(401).json({ message: 'No autenticado' })
 	}
 	//--------------
-
-	return verifiedToken
 }
