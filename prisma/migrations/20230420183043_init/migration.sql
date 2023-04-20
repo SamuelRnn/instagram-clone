@@ -4,8 +4,8 @@ CREATE TABLE `User` (
     `user_name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
-    `about_me` VARCHAR(191) NULL,
-    `avatar` VARCHAR(191) NULL,
+    `about_me` VARCHAR(191) NULL DEFAULT 'Usuario de instaclone',
+    `avatar` VARCHAR(191) NULL DEFAULT '/assets/user.svg',
     `role` ENUM('user', 'admin', 'god') NOT NULL DEFAULT 'user',
     `reg_code` VARCHAR(191) NULL,
     `active` BOOLEAN NOT NULL DEFAULT false,
@@ -36,6 +36,7 @@ CREATE TABLE `Like` (
     `id_post` INTEGER NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
+    UNIQUE INDEX `Like_id_post_id_user_key`(`id_post`, `id_user`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

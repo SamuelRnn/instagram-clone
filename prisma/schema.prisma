@@ -21,8 +21,8 @@ model User {
   user_name   String    @unique
   email       String    @unique
   password    String
-  about_me    String?   @default("Usuario de instaclon")
-  avatar      String?   @default("/assets/user.png")
+  about_me    String?   @default("Usuario de instaclone")
+  avatar      String?   @default("/assets/user.svg")
   role        Roles     @default(user)
   reg_code    String?
   active      Boolean   @default(false)
@@ -35,7 +35,7 @@ model User {
 
 model Post {
   id          Int       @id @default(autoincrement())
-  text        String?
+  text        String?   @db.VarChar(300)
   image       String
   author      User      @relation(fields: [id_user], references: [id])
   id_user     String

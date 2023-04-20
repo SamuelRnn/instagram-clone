@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast'
 import { AiOutlineClose } from 'react-icons/ai'
 import Loader from './_shared/Loader'
 import { uploadImage } from '@/utils'
+import axios from 'axios'
 
 export default function PostModal({ closeCreateModal }) {
 	const user = useSessionStore(state => state.user)
@@ -26,8 +27,10 @@ export default function PostModal({ closeCreateModal }) {
 		try {
 			setLoading(true)
 			const cdnURL = await uploadImage(image)
-			const newPost = { image: cdnURL, text, id_user: user.id }
-
+			const newPost = { image: cdnURL, id_user: user.id }
+			if (text) {
+				newPost.text = text
+			}
 			const { data } = await axios.post('/api/posts', newPost)
 			toast.success(data.message)
 			closeCreateModal()
@@ -79,6 +82,7 @@ export default function PostModal({ closeCreateModal }) {
 							name="text"
 							className="bg-transparent outline-none h-32 resize-none px-2 py-1 text-sm"
 							placeholder="Agrega una descripción (opcional)"
+							maxLength={300}
 						/>
 						<button
 							disabled={!image || isLoading}

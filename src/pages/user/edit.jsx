@@ -1,7 +1,7 @@
 import { Layout } from '@/components'
 import Loader from '@/components/_shared/Loader'
 import { prisma } from '@/config'
-import { verifyToken } from '@/utils'
+import { uploadImage, verifyToken } from '@/utils'
 import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'

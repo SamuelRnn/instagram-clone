@@ -50,6 +50,12 @@ export async function getServerSideProps(ctx) {
 			},
 		},
 	})
+
+	if (!post) {
+		return {
+			notFound: true,
+		}
+	}
 	return {
 		props: {
 			post,

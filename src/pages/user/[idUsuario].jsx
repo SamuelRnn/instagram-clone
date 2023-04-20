@@ -77,7 +77,11 @@ export async function getServerSideProps(ctx) {
 			user_name: true,
 		},
 	})
-
+	if (!userInfo) {
+		return {
+			notFound: true,
+		}
+	}
 	return {
 		props: { user: userInfo },
 	}

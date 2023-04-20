@@ -101,7 +101,7 @@ export default function HomePostCard({
 							src={post?.image}
 							width={800}
 							height={800}
-							alt={post?.text}
+							alt={post?.text ?? 'post image'}
 							className=" object-contain"
 						/>
 					</Link>
@@ -143,13 +143,14 @@ export default function HomePostCard({
 					<span className="text-zinc-200 font-bold">
 						<button>{post?.author.user_name}</button>
 					</span>{' '}
-					{!full && post?.text.slice(0, 100)}{' '}
-					{!full && post?.text.length > 100 && (
-						<span>
+					{!full && post?.text && post.text.slice(0, 100)}
+					{'... '}
+					{!full && post?.text && post.text.length > 100 && (
+						<Link href={`/post/${post?.id}`}>
 							<button className="hover:underline text-zinc-300">
 								Leer más
 							</button>
-						</span>
+						</Link>
 					)}
 					{full && <span>{post?.text}</span>}
 				</p>
