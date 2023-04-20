@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 		const userId = req.body.userId
 		const content = req.body.content
 
-		const { id } = await prisma.comment.create({
+		await prisma.comment.create({
 			data: {
 				id_post: postId,
 				id_user: userId,

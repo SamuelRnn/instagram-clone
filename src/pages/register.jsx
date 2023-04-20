@@ -16,7 +16,6 @@ export default function Register() {
 	const onSubmit = async event => {
 		setLoading(true)
 		event.preventDefault()
-		console.log(form)
 		try {
 			const { data } = await axios.post('/api/users', form)
 			if (data.status === 'ok') {

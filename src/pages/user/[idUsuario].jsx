@@ -12,10 +12,7 @@ export default function UserProfile({ user }) {
 			<div className="pb-6 border-b border-zinc-700 w-profile mx-auto">
 				<div className="mx-auto max-w-[600px] flex gap-6">
 					<Image
-						src={
-							user.avatar ??
-							'https://ucarecdn.com/ff33b248-1904-4f99-bfc3-02ad9f7d5fd5/'
-						}
+						src={user.avatar}
 						alt={user.user_name}
 						width={150}
 						height={150}

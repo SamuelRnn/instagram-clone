@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import text_logo from '../../public/assets/text-logo.svg'
 import Link from 'next/link'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSessionStore } from '@/store'
@@ -70,4 +70,18 @@ export default function Login() {
 			</div>
 		</main>
 	)
+}
+
+export async function getServerSideProps(ctx) {
+	const token = ctx.req.cookies['token']
+	if (token)
+		return {
+			redirect: {
+				destination: '/',
+				permanent: true,
+			},
+		}
+	return {
+		props: {},
+	}
 }

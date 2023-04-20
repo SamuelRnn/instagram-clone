@@ -5,14 +5,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSessionStore } from '@/store'
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 export default function HomePostCard({
-	post: postData,
+	post: postInitialData,
 	skeleton = false,
 	full = false,
 }) {
-	const [post, setPost] = useState(postData)
+	const [post, setPost] = useState(postInitialData)
 	const user = useSessionStore(state => state.user)
 	const commentRef = useRef(null)
 
@@ -29,6 +30,9 @@ export default function HomePostCard({
 	}
 	const likeAction = () => {
 		const like = post.liked_by.find(currUser => currUser.id_user === user.id)
+		if (!user) {
+			return toast.error('Inicia sesión antes!')
+		}
 		if (like) {
 			deleteLike()
 		} else {
@@ -110,9 +114,9 @@ export default function HomePostCard({
 						</span>
 					</div>
 					<div className="flex gap-1">
-						<button>
+						<Link href={`/post/${post?.id}`}>
 							<MdInsertComment className="post-actions" />
-						</button>
+						</Link>
 						<span className="text-sm select-none">
 							{post?.comments.length ?? 0}
 						</span>
@@ -154,18 +158,29 @@ export default function HomePostCard({
 								{comment.content}
 							</div>
 						))}
-						<textarea
-							ref={commentRef}
-							className="input resize-none w-full h-40"
-							placeholder="Agrega un comentario"
-							maxLength={260}
-						></textarea>
-						<div className="grid grid-cols-2 gap-4">
-							<button className="button py-3 px-2">Reiniciar</button>
-							<button className="button-light py-3 px-2" onClick={addComment}>
-								Aceptar
-							</button>
-						</div>
+						{user ? (
+							<>
+								<textarea
+									ref={commentRef}
+									className="input resize-none w-full h-40"
+									placeholder="Agrega un comentario"
+									maxLength={260}
+								/>
+								<div className="grid grid-cols-2 gap-4">
+									<button className="button py-3 px-2">Reiniciar</button>
+									<button
+										className="button-light py-3 px-2"
+										onClick={addComment}
+									>
+										Aceptar
+									</button>
+								</div>
+							</>
+						) : (
+							<p className="mt-2 text-zinc-500">
+								Inicia sesión para participar
+							</p>
+						)}
 					</div>
 				</div>
 			)}
