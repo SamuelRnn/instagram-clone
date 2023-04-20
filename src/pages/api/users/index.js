@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 		const verifyTokenURL =
 			process.env.NODE_ENV === 'development'
 				? `http://localhost:3000/api/users/validate/${registerToken}`
-				: `https://instagram-clone.vercel.app/api/users/validate/${registerToken}`
+				: `${process.env.NEXT_PUBLIC_DEPLOY_URL}/api/users/validate/${registerToken}`
 
 		const html = `
 			<h1>Cuenta de Instaclone creada satisfactoriamente</h1>
