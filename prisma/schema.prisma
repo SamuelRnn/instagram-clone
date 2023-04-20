@@ -52,6 +52,7 @@ model Like {
   post       Post     @relation(fields: [id_post], references: [id])
   id_post    Int
   created_at DateTime @default(now())
+  @@unique([id_post, id_user])
 }
 
 model Comment {
