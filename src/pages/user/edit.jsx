@@ -143,7 +143,7 @@ export default function Edit({ user }) {
 								})
 							}
 						>
-							Reiniciar
+							Cancelar
 						</button>
 						<button
 							disabled={
@@ -154,7 +154,7 @@ export default function Edit({ user }) {
 							type="submit"
 							className="button-light py-3 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
 						>
-							<span>Crear</span>
+							<span>Actualizar</span>
 							{isLoading && <Loader />}
 						</button>
 					</div>

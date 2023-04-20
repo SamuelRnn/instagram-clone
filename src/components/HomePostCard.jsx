@@ -80,7 +80,7 @@ export default function HomePostCard({
 							alt="profile name"
 							width={40}
 							height={40}
-							className="rounded-full outline outline-2 outline-zinc-700 text-xs overflow-hidden grid place-content-center"
+							className="rounded-full outline outline-2 outline-zinc-700 text-xs grid place-content-center object-cover w-10 h-10"
 						/>
 					</Link>
 				)}
@@ -96,7 +96,11 @@ export default function HomePostCard({
 				{skeleton ? (
 					<div className="w-full h-full bg-zinc-800"></div>
 				) : (
-					<Link href={`/post/${post?.id}`} className="h-full flex items-center">
+					<Link
+						href={`/post/${post?.id}`}
+						className="h-full flex items-center"
+						title="ver post completo"
+					>
 						<Image
 							src={post?.image}
 							width={800}
@@ -126,7 +130,7 @@ export default function HomePostCard({
 						</span>
 					</div>
 					<div className="flex gap-1">
-						<Link href={`/post/${post?.id}`}>
+						<Link href={`/post/${post?.id}`} title="ver post completo">
 							<MdInsertComment className="post-actions" />
 						</Link>
 						<span className="text-sm select-none">
@@ -144,9 +148,9 @@ export default function HomePostCard({
 						<button>{post?.author.user_name}</button>
 					</span>{' '}
 					{!full && post?.text && post.text.slice(0, 100)}
-					{'... '}
+					{post.text.length > 100 && '... '}
 					{!full && post?.text && post.text.length > 100 && (
-						<Link href={`/post/${post?.id}`}>
+						<Link href={`/post/${post?.id}`} title="ver post completo">
 							<button className="hover:underline text-zinc-300">
 								Leer más
 							</button>
