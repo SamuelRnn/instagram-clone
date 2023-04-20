@@ -24,7 +24,6 @@ export default function Edit({ user }) {
 			setLoading(true)
 			let newPost = { ...form }
 			if (form.avatar !== user.avatar) {
-				console.log('uploading photo')
 				const cdnURL = await uploadImage(form.avatar)
 				newPost = { ...form, avatar: cdnURL }
 			}

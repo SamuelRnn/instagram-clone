@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 		const registerToken = createToken(createdUser.id)
 
 		const verifyTokenURL =
-			process.env.NODE_ENV === 'development'
+			process.env.NODE_ENV !== 'production'
 				? `http://localhost:3000/api/users/validate/${registerToken}`
 				: `${process.env.NEXT_PUBLIC_DEPLOY_URL}/api/users/validate/${registerToken}`
 

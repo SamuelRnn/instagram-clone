@@ -32,7 +32,6 @@ export default async function handler(req, res) {
 		const changes = {}
 		for (let key in data) {
 			if (data[key] !== user[key]) {
-				console.log(data[key])
 				changes[key] = data[key]
 			}
 		}
