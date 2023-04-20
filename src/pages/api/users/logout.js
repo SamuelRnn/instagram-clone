@@ -3,7 +3,7 @@ import { serialize } from 'cookie'
 
 export default function handler(req, res) {
 	if (req.method === 'POST') {
-		const { token } = req.cookies
+		const token = req.cookies.token
 
 		if (!token) {
 			return res.status(401).json({ message: 'Sin autorización' })
@@ -14,8 +14,8 @@ export default function handler(req, res) {
 			return res.status(401) - json({ message: 'Token inválido' })
 		}
 		const serializedToken = serialize('token', null, {
-			httpOnly: false, //true after
-			secure: false, //true on production
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
 			sameSite: 'strict',
 			maxAge: 0,
 			path: '/',

@@ -60,6 +60,7 @@ export async function getServerSideProps(ctx) {
 	const userInfo = await prisma.user.findUnique({
 		where: { id: idUsuario },
 		select: {
+			id: true,
 			about_me: true,
 			avatar: true,
 			email: true,

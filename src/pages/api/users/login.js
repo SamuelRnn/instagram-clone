@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 		})
 		if (!user) {
 			return res.status(400).json({
-				error:
+				message:
 					'Verifica tu correo electrónico y contraseña e inténtalo de nuevo.',
 			})
 		}
@@ -26,10 +26,10 @@ export default async function handler(req, res) {
 		const token = createToken(user.id)
 
 		const serializedToken = serialize('token', token, {
-			httpOnly: false, //true after
-			secure: false, //true on production
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
 			sameSite: 'strict',
-			maxAge: 1000 * 60 * 60 * 24 * 30,
+			maxAge: 60 * 60 * 24 * 60,
 			path: '/',
 		})
 
