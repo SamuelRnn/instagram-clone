@@ -1,23 +1,10 @@
 import { useSessionStore } from '@/store'
-import axios from 'axios'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { AiOutlineClose } from 'react-icons/ai'
 import Loader from './_shared/Loader'
-
-async function uploadImage(file) {
-	const body = {
-		UPLOADCARE_PUB_KEY: process.env.NEXT_PUBLIC_UPLOADCARE_PUB_KEY,
-		file,
-	}
-
-	const { data } = await axios.postForm(
-		'https://upload.uploadcare.com/base/',
-		body
-	)
-	return `https://ucarecdn.com/${data.file}/`
-}
+import { uploadImage } from '@/utils'
 
 export default function PostModal({ closeCreateModal }) {
 	const user = useSessionStore(state => state.user)
@@ -45,7 +32,8 @@ export default function PostModal({ closeCreateModal }) {
 			toast.success(data.message)
 			closeCreateModal()
 		} catch (error) {
-			toast.error(error.message)
+			toast.error(error.response.data.message)
+			setLoading(false)
 		}
 	}
 
@@ -65,7 +53,7 @@ export default function PostModal({ closeCreateModal }) {
 				</div>
 				<form onSubmit={onSubmit} className="flex flex-wrap w-full gap-4">
 					<label
-						className="cursor-pointer rounded-lg border border-zinc-700 aspect-square overflow-hidden w-[290px] relative grid place-content-center hover:bg-main-black-accent"
+						className="cursor-pointer rounded-lg border border-zinc-700 aspect-square overflow-hidden w-[280px] mx-auto relative grid place-content-center hover:bg-main-black-accent"
 						title="subir imagen"
 					>
 						<input
@@ -85,7 +73,7 @@ export default function PostModal({ closeCreateModal }) {
 							<p className="text-zinc-500">Agregar una imagen</p>
 						)}
 					</label>
-					<div className=" w-[290px] flex flex-col justify-between">
+					<div className=" w-[280px] mx-auto flex flex-col justify-between">
 						<textarea
 							onChange={onTextChange}
 							name="text"

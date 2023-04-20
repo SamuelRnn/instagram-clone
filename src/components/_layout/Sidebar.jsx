@@ -109,9 +109,12 @@ export default function Sidebar({ user, openCreateModal }) {
 									<p className="hover:text-white w-28 overflow-hidden text-ellipsis">
 										<Link href={`/user/${user.id}`}>{user.user_name}</Link>
 									</p>
-									<button className="text-zinc-400 text-sm hover:underline hover:text-zinc-200">
+									<Link
+										href="/user/edit"
+										className="text-zinc-400 text-sm hover:underline hover:text-zinc-200"
+									>
 										editar perfil
-									</button>
+									</Link>
 								</div>
 							</div>
 							<button

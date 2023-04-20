@@ -21,8 +21,8 @@ model User {
   user_name   String    @unique
   email       String    @unique
   password    String
-  about_me    String?
-  avatar      String? @default("/assets/user.png")
+  about_me    String?   @default("Usuario de instaclon")
+  avatar      String?   @default("/assets/user.png")
   role        Roles     @default(user)
   reg_code    String?
   active      Boolean   @default(false)
@@ -52,6 +52,7 @@ model Like {
   post       Post     @relation(fields: [id_post], references: [id])
   id_post    Int
   created_at DateTime @default(now())
+
   @@unique([id_post, id_user])
 }
 

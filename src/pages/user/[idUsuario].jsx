@@ -2,6 +2,7 @@ import { Layout, ProfilePostPreview } from '@/components'
 import { prisma } from '@/config'
 import { useSessionStore } from '@/store'
 import Image from 'next/image'
+import Link from 'next/link'
 import { AiFillEdit } from 'react-icons/ai'
 
 export default function UserProfile({ user }) {
@@ -24,10 +25,13 @@ export default function UserProfile({ user }) {
 								{user.user_name}
 							</h1>
 							{currentUser && currentUser.id === user.id && (
-								<button className="flex items-center hover:underline">
+								<Link
+									href="/user/edit"
+									className="flex items-center hover:underline"
+								>
 									<span className="hidden lg:block text-sm">Editar perfil</span>
 									<AiFillEdit className="m-2 text-xl" />
-								</button>
+								</Link>
 							)}
 						</div>
 						<p className="text-sm text-zinc-400">
