@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
 			</Head>
 			<Component {...pageProps} />
 			{loader && (
-				<div className="fixed top-0 left-0 w-full h-screen bg-zinc-800 grid place-content-center">
+				<div className="fixed z-[999] top-0 left-0 w-full h-screen bg-zinc-800 grid place-content-center">
 					<Image
 						src="/assets/logo.svg"
 						alt="logo"

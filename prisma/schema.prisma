@@ -22,7 +22,7 @@ model User {
   email       String    @unique
   password    String
   about_me    String?
-  avatar      String?
+  avatar      String? @default("/assets/user.png")
   role        Roles     @default(user)
   reg_code    String?
   active      Boolean   @default(false)

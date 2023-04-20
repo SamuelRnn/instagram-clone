@@ -6,7 +6,7 @@ import { AiFillEdit } from 'react-icons/ai'
 export default function UserProfile({ user }) {
 	return (
 		<Layout>
-			<div className="pb-6 border-b border-zinc-700 w-profile mx-auto pt-12">
+			<div className="pb-6 border-b border-zinc-700 w-profile mx-auto">
 				<div className="mx-auto max-w-[600px] flex gap-6">
 					<Image
 						src={

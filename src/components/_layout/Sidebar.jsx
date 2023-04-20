@@ -6,16 +6,17 @@ import {
 	AiFillHeart,
 	AiOutlineClose,
 	AiOutlineMenuUnfold,
+	AiFillInstagram,
 } from 'react-icons/ai'
 import { BsFillImageFill } from 'react-icons/bs'
 import { BiLogOut } from 'react-icons/bi'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 import { useSidebarStore } from '@/store'
 import axios from 'axios'
 
-function Sidebar({ user }) {
+export default function Sidebar({ user, openCreateModal }) {
 	const sidebarTranslate = useSidebarStore(state => state.sidebarTranslate)
 	const setSidebarTranslate = useSidebarStore(
 		state => state.setSidebarTranslate
@@ -41,14 +42,18 @@ function Sidebar({ user }) {
 	}, [])
 	return (
 		<>
-			<button
-				onClick={() => setSidebarTranslate('0%')}
-				className="fixed top-8 bg-zinc-800 rounded-r-xl shadow-md"
-			>
-				<AiOutlineMenuUnfold className="text-2xl m-3" />
-			</button>
+			<div className="fixed md:hidden top-0 w-full z-30 bg-main-black-accent">
+				<div className="w-box mx-auto flex items-center justify-between">
+					<Link href="/">
+						<AiFillInstagram className="text-3xl my-4" />
+					</Link>
+					<button onClick={() => setSidebarTranslate('0%')}>
+						<AiOutlineMenuUnfold className="text-2xl my-4" />
+					</button>
+				</div>
+			</div>
 			<div
-				className={`bg-main-black-accent border-r border-zinc-800 fixed md:sticky top-0 h-screen overflow-y-auto w-[270px] shadow-md transition-transform ease-out duration-500`}
+				className={`bg-main-black-accent border-r border-zinc-800 fixed md:sticky top-0 h-screen overflow-y-auto w-[270px] shadow-md transition-transform ease-out duration-500 z-40`}
 				style={{ transform: `translateX(${sidebarTranslate})` }}
 			>
 				<nav className="h-full flex flex-col justify-between gap-5 relative">
@@ -80,10 +85,10 @@ function Sidebar({ user }) {
 										<AiFillHeart className="text-2xl" />
 										Likes
 									</div>
-									<Link href="/create" className="nav-action">
+									<button onClick={openCreateModal} className="nav-action">
 										<BsFillImageFill className="text-2xl" />
 										Crear{' '}
-									</Link>
+									</button>
 								</>
 							)}
 						</div>
@@ -93,14 +98,11 @@ function Sidebar({ user }) {
 							<div className="flex items-center gap-3">
 								<Link href={`/user/${user.id}`}>
 									<Image
-										src={
-											user.avatar ??
-											'https://ucarecdn.com/ff33b248-1904-4f99-bfc3-02ad9f7d5fd5/'
-										}
+										src={user.avatar ?? '/assets/user.png'}
 										alt="user avatar"
 										width={50}
 										height={50}
-										className="rounded-full outline outline-2 outline-zinc-700 overflow-hidden cursor-pointer"
+										className="object-cover rounded-full outline outline-2 outline-zinc-700 overflow-hidden cursor-pointer"
 									/>
 								</Link>
 								<div>
@@ -126,4 +128,4 @@ function Sidebar({ user }) {
 		</>
 	)
 }
-export default dynamic(() => Promise.resolve(Sidebar), { ssr: false })
+// export default dynamic(() => Promise.resolve(Sidebar), { ssr: false })

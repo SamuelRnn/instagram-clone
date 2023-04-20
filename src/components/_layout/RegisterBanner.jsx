@@ -1,17 +1,17 @@
 import Image from 'next/image'
 import logo from '../../../public/assets/logo.svg'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 
-function RegisterBanner() {
+export default function RegisterBanner() {
 	return (
-		<div className="fixed w-full bottom-0 left-0 h-40 bg-neutral-950 flex items-center">
-			<div className="mx-auto w-banner text-sm flex flex-col md:flex-row justify-center md:justify-between">
-				<div className="flex">
+		<div className="fixed w-full bottom-0 left-0 h-44 bg-neutral-950/90 flex items-center z-[45]">
+			<div className="mx-auto w-banner flex flex-col md:flex-row justify-center md:justify-between">
+				<div className="flex max-md:mx-auto items-center">
 					<Image src={logo} alt="instagram logo" width={80} height={80} />
 					<div className="flex flex-col gap-y-2">
 						<p className="font-bold text-base">Iniciar sesión en Instaclone</p>
-						<p className="max-w-sm">
+						<p className="max-w-sm text-sm">
 							Inicia sesión para ver las fotos y los videos de tus amigos y
 							descubrir otras cuentas que te encantarán.
 						</p>
@@ -35,4 +35,4 @@ function RegisterBanner() {
 		</div>
 	)
 }
-export default dynamic(() => Promise.resolve(RegisterBanner), { ssr: false })
+// export default dynamic(() => Promise.resolve(RegisterBanner), { ssr: false })

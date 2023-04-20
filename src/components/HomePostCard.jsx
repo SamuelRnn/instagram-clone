@@ -25,7 +25,9 @@ export default function HomePostCard({ post, skeleton = false }) {
 				{skeleton ? (
 					<p className="h-4 w-32 bg-zinc-800 rounded-md"></p>
 				) : (
-					<p>{post?.author.user_name}</p>
+					<Link href={`/user/${post?.author.id}`}>
+						<p>{post?.author.user_name}</p>
+					</Link>
 				)}
 			</div>
 			<div className="bg-main-black-accent overflow-hidden border border-zinc-700 aspect-square rounded-md relative">
