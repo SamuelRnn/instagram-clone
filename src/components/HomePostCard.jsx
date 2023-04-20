@@ -25,7 +25,7 @@ export default function HomePostCard({ post, skeleton = false }) {
 					<p>{post?.author.user_name}</p>
 				)}
 			</div>
-			<div className="bg-main-black-accent border border-zinc-700 aspect-square rounded-md relative">
+			<div className="bg-main-black-accent overflow-hidden border border-zinc-700 aspect-square rounded-md relative">
 				{skeleton ? (
 					<div className="w-full h-full bg-zinc-800"></div>
 				) : (

@@ -102,7 +102,10 @@ function Sidebar({ user }) {
 									</button>
 								</div>
 							</div>
-							<button className="hover:bg-white/10 transition-colors ease-out rounded-md">
+							<button
+								className="hover:bg-white/10 transition-colors ease-out rounded-md"
+								title="Cerrar sesión"
+							>
 								<BiLogOut className="text-3xl m-1" />
 							</button>
 						</div>
