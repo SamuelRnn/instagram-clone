@@ -1,4 +1,3 @@
-import { MdSignalCellularNull } from 'react-icons/md'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -11,9 +10,6 @@ export const useSessionStore = create(
 		}),
 		{
 			name: 'user-storage',
-			onRehydrateStorage: () => state => {
-				state.setHasHydrated(true)
-			},
 		}
 	)
 )

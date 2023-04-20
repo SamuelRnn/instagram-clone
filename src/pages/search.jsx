@@ -1,6 +1,6 @@
 import { Layout } from '@/components'
 
-export default function search() {
+export default function Search() {
 	return (
 		<Layout>
 			<div>search</div>
