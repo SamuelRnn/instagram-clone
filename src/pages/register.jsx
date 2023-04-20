@@ -3,24 +3,29 @@ import text_logo from '../../public/assets/text-logo.svg'
 import Link from 'next/link'
 import axios from 'axios'
 import { useState } from 'react'
+import { toast } from 'react-hot-toast'
+import Loader from '@/components/_shared/Loader'
 
 export default function Register() {
+	const [isLoading, setLoading] = useState(false)
 	const [form, setForm] = useState({
 		user_name: '',
 		email: '',
 		password: '',
 	})
 	const onSubmit = async event => {
+		setLoading(true)
 		event.preventDefault()
 		console.log(form)
 		try {
 			const { data } = await axios.post('/api/users', form)
 			if (data.status === 'ok') {
-				alert('exito')
+				toast.success('Registro Exitoso, verifica tu cuenta antes de continuar')
 			}
 		} catch (error) {
-			console.log(error)
+			toast.error(error.message)
 		}
+		setLoading(false)
 	}
 	const onChange = event => {
 		setForm(state => ({ ...state, [event.target.name]: event.target.value }))
@@ -57,8 +62,13 @@ export default function Register() {
 						className="input"
 						placeholder="Contraseña"
 					/>
-					<button type="submit" className="button-light h-12 mt-4">
-						Registrarte
+					<button
+						disabled={!form.user_name || !form.email || !form.password}
+						type="submit"
+						className="button-light h-12 mt-4 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
+					>
+						<span>Registrarte</span>
+						{isLoading && <Loader />}
 					</button>
 				</form>
 				<hr className="m-6 w-full border-zinc-700" />

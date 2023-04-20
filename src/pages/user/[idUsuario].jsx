@@ -1,9 +1,12 @@
 import { Layout, ProfilePostPreview } from '@/components'
 import { prisma } from '@/config'
+import { useSessionStore } from '@/store'
 import Image from 'next/image'
 import { AiFillEdit } from 'react-icons/ai'
 
 export default function UserProfile({ user }) {
+	const currentUser = useSessionStore(state => state.user)
+
 	return (
 		<Layout>
 			<div className="pb-6 border-b border-zinc-700 w-profile mx-auto">
@@ -23,13 +26,16 @@ export default function UserProfile({ user }) {
 							<h1 className="text-base sm:text-lg font-bold max-w-[128px] sm:max-w-[240px] overflow-hidden text-ellipsis">
 								{user.user_name}
 							</h1>
-							<button className="flex items-center hover:underline">
-								<span className="hidden lg:block text-sm">Editar perfil</span>
-								<AiFillEdit className="m-2 text-xl" />
-							</button>
+							{currentUser && currentUser.id === user.id && (
+								<button className="flex items-center hover:underline">
+									<span className="hidden lg:block text-sm">Editar perfil</span>
+									<AiFillEdit className="m-2 text-xl" />
+								</button>
+							)}
 						</div>
 						<p className="text-sm text-zinc-400">
-							{user?.posts.length} publicaciones
+							{user.posts.length}{' '}
+							{user.posts.length !== 1 ? 'publicaciones' : 'publicación'}
 						</p>
 						<p className="hidden sm:block text-sm">{user.about_me}</p>
 					</div>

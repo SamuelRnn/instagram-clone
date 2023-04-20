@@ -1,14 +1,19 @@
 import Image from 'next/image'
 import text_logo from '../../public/assets/text-logo.svg'
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSessionStore } from '@/store'
+import { toast } from 'react-hot-toast'
+import Loader from '@/components/_shared/Loader'
 
 export default function Login() {
-	const emailRef = useRef(null)
-	const pwRef = useRef(null)
+	const [isLoading, setLoading] = useState(false)
+
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
 	const router = useRouter()
 	const session = useSessionStore(state => ({
 		setUser: state.setUser,
@@ -16,15 +21,14 @@ export default function Login() {
 
 	const onSubmit = async event => {
 		event.preventDefault()
+		setLoading(true)
 		try {
-			const { data } = await axios.post('/api/users/login', {
-				email: emailRef.current.value,
-				password: pwRef.current.value,
-			})
+			const { data } = await axios.post('/api/users/login', { email, password })
 			session.setUser(data.user)
 			router.push('/')
 		} catch (error) {
-			console.log(error)
+			toast.error(error.response.data.message)
+			setLoading(false)
 		}
 	}
 	return (
@@ -37,18 +41,23 @@ export default function Login() {
 				>
 					<input
 						type="email"
-						ref={emailRef}
+						onChange={({ target }) => setEmail(target.value)}
 						className="input"
 						placeholder="Correo Electrónico"
 					/>
 					<input
 						type="password"
-						ref={pwRef}
+						onChange={({ target }) => setPassword(target.value)}
 						className="input"
 						placeholder="Contraseña"
 					/>
-					<button type="submit" className="button-light h-12 mt-4">
-						Entrar
+					<button
+						disabled={!email || !password}
+						type="submit"
+						className="button-light h-12 mt-4 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
+					>
+						<span>Entrar</span>
+						{isLoading && <Loader />}
 					</button>
 				</form>
 				<hr className="m-6 w-full border-zinc-700" />

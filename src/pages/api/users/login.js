@@ -18,7 +18,9 @@ export default async function handler(req, res) {
 			})
 		}
 		if (!user.active) {
-			return res.status(400).json({ error: 'Active su cuenta' })
+			return res.status(400).json({
+				message: 'Por favor, active su cuenta. Revise su bandeja de email',
+			})
 		}
 
 		const token = createToken(user.id)
