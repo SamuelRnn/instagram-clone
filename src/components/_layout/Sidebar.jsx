@@ -13,12 +13,22 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 import { useSidebarStore } from '@/store'
+import axios from 'axios'
 
 function Sidebar({ user }) {
 	const sidebarTranslate = useSidebarStore(state => state.sidebarTranslate)
 	const setSidebarTranslate = useSidebarStore(
 		state => state.setSidebarTranslate
 	)
+
+	const logout = async () => {
+		try {
+			await axios.post('/api/users/logout')
+			location.href = '/'
+		} catch (error) {
+			alert('unexpected error')
+		}
+	}
 
 	useEffect(() => {
 		const sidebarStateChecker = () => {
@@ -103,6 +113,7 @@ function Sidebar({ user }) {
 								</div>
 							</div>
 							<button
+								onClick={logout}
 								className="hover:bg-white/10 transition-colors ease-out rounded-md"
 								title="Cerrar sesión"
 							>

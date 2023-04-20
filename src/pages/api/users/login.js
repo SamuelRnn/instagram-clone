@@ -33,7 +33,6 @@ export default async function handler(req, res) {
 
 		res.setHeader('Set-Cookie', serializedToken)
 		return res.status(200).json({
-			error: null,
 			user: {
 				user_name: user.user_name,
 				avatar: user.avatar,

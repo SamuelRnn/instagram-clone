@@ -12,7 +12,6 @@ export default function Login() {
 	const router = useRouter()
 	const session = useSessionStore(state => ({
 		setUser: state.setUser,
-		user: state.user,
 	}))
 
 	const onSubmit = async event => {

@@ -1,16 +1,29 @@
+import { useSessionStore } from '@/store'
 import '@/styles/globals.css'
+import axios from 'axios'
+import { verify } from 'jsonwebtoken'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 export default function App({ Component, pageProps }) {
 	const [loader, setLoader] = useState(true)
+	const setUser = useSessionStore(state => state.setUser)
 
 	useEffect(() => {
-		setTimeout(() => {
-			setLoader(false)
-			document.body.style.overflow = 'auto'
-		}, 1500)
+		const getSession = async () => {
+			try {
+				const { data } = await axios.post('/api/users/verify-session')
+				setUser(data.user)
+			} catch (error) {}
+
+			setTimeout(() => {
+				setLoader(false)
+				document.body.style.overflow = 'auto'
+			}, 1500)
+		}
+		getSession()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
 		<>
