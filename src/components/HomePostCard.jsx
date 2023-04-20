@@ -189,7 +189,7 @@ export default function HomePostCard({
 									ref={commentRef}
 									className="input resize-none w-full h-40"
 									placeholder="Agrega un comentario"
-									maxLength={260}
+									maxLength={200}
 								/>
 								<div className="grid grid-cols-2 gap-4">
 									<button className="button py-3 px-2">Reiniciar</button>

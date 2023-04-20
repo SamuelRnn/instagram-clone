@@ -58,7 +58,7 @@ model Like {
 
 model Comment {
   id         Int      @id @default(autoincrement())
-  content    String
+  content    String   @db.VarChar(200)
   author     User     @relation(fields: [id_user], references: [id])
   id_user    String
   post       Post     @relation(fields: [id_post], references: [id])
