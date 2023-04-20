@@ -28,6 +28,16 @@ export default function HomePostCard({
 			commentRef.current.blur()
 		}
 	}
+	const deleteComment = async commentId => {
+		const { data } = await axios.delete(`/api/posts/${post.id}/comments`, {
+			params: {
+				commentId,
+			},
+		})
+		if (data.ok) {
+			setPost(data.post)
+		}
+	}
 	const likeAction = () => {
 		const like = post.liked_by.find(currUser => currUser.id_user === user.id)
 		if (!user) {
@@ -103,9 +113,11 @@ export default function HomePostCard({
 						<button onClick={likeAction} className="">
 							<AiFillHeart
 								className={`post-actions ${
-									post?.liked_by.find(
-										currUser => currUser.id_user === user.id
-									) && 'text-red-500'
+									user &&
+									post?.liked_by?.find(
+										currUser => currUser?.id_user === user.id
+									) &&
+									'text-red-500'
 								}`}
 							/>
 						</button>
@@ -150,12 +162,24 @@ export default function HomePostCard({
 					<div className="flex flex-col py-3 gap-y-3">
 						{post?.comments.map(comment => (
 							<div key={comment.id} className="text-sm">
-								<Link href={`/user/${comment.author.id}`}>
-									<span className="font-bold hover:underline">
+								<p>
+									<Link
+										href={`/user/${comment.id_user}`}
+										className="font-bold hover:underline"
+									>
 										{comment.author.user_name}
-									</span>
-								</Link>{' '}
-								{comment.content}
+									</Link>
+									<span> {comment.content}</span>
+									{comment.id_user === user?.id && (
+										<span
+											className="text-zinc-400 hover:underline cursor-pointer"
+											onClick={() => deleteComment(comment.id)}
+										>
+											{' '}
+											Borrar mi comentario
+										</span>
+									)}
+								</p>
 							</div>
 						))}
 						{user ? (
