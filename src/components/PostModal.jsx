@@ -2,7 +2,9 @@ import { useSessionStore } from '@/store'
 import axios from 'axios'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { AiOutlineClose } from 'react-icons/ai'
+import Loader from './_shared/Loader'
 
 async function uploadImage(file) {
 	const body = {
@@ -23,6 +25,8 @@ export default function PostModal({ closeCreateModal }) {
 	const [text, setText] = useState('')
 	const [imagePreview, setImagePreview] = useState(null)
 
+	const [isLoading, setLoading] = useState(false)
+
 	const onImageChange = event => {
 		setImage(event.target.files[0])
 		setImagePreview(URL.createObjectURL(event.target.files[0]))
@@ -31,23 +35,27 @@ export default function PostModal({ closeCreateModal }) {
 
 	const onSubmit = async event => {
 		event.preventDefault()
-		const cdnURL = await uploadImage(image)
-		const newPost = { image: cdnURL, text, id_user: user.id }
 
 		try {
+			setLoading(true)
+			const cdnURL = await uploadImage(image)
+			const newPost = { image: cdnURL, text, id_user: user.id }
+
 			const { data } = await axios.post('/api/posts', newPost)
-			console.log(data)
+			toast.success(data.message)
+			closeCreateModal()
 		} catch (error) {
-			console.log(error.message)
+			toast.error(error.message)
 		}
 	}
+
 	useEffect(() => {
 		document.body.style.overflow = 'hidden'
 		return () => (document.body.style.overflow = 'auto')
 	}, [])
 
 	return (
-		<div className="fixed z-50 h-screen w-full top-0 left-0 bg-main-black-accent/90 flex items-center">
+		<div className="fixed z-50 h-screen w-full top-0 left-0 bg-black/40 flex items-center">
 			<div className="mx-auto flex flex-col items-center bg-main-black p-4 pt-0 border rounded-md border-zinc-700 h-fit">
 				<div className="mb-4 text-center py-2 border-b border-zinc-700 w-full relative">
 					<button className="absolute right-2 top-3" onClick={closeCreateModal}>
@@ -82,10 +90,15 @@ export default function PostModal({ closeCreateModal }) {
 							onChange={onTextChange}
 							name="text"
 							className="bg-transparent outline-none h-32 resize-none px-2 py-1 text-sm"
-							placeholder="Escribe una descripción"
+							placeholder="Agrega una descripción (opcional)"
 						/>
-						<button type="submit" className="button py-3 w-full">
-							Crear
+						<button
+							disabled={!image || isLoading}
+							type="submit"
+							className="button py-3 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
+						>
+							<span>Crear</span>
+							{isLoading && <Loader />}
 						</button>
 					</div>
 				</form>

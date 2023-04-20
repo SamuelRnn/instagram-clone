@@ -1,10 +1,10 @@
 import { useSessionStore } from '@/store'
 import '@/styles/globals.css'
 import axios from 'axios'
-import { verify } from 'jsonwebtoken'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 export default function App({ Component, pageProps }) {
 	const [loader, setLoader] = useState(true)
@@ -43,6 +43,17 @@ export default function App({ Component, pageProps }) {
 					/>
 				</div>
 			)}
+			<Toaster
+				position="bottom-center"
+				reverseOrder={false}
+				toastOptions={{
+					style: {
+						borderRadius: '10px',
+						background: '#333',
+						color: '#fff',
+					},
+				}}
+			/>
 		</>
 	)
 }
