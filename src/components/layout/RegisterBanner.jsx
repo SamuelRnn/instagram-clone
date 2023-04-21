@@ -1,7 +1,6 @@
-import Image from 'next/image'
 import logo from '../../../public/assets/logo.svg'
+import Image from 'next/image'
 import Link from 'next/link'
-// import dynamic from 'next/dynamic'
 
 export default function RegisterBanner() {
 	return (
@@ -35,4 +34,3 @@ export default function RegisterBanner() {
 		</div>
 	)
 }
-// export default dynamic(() => Promise.resolve(RegisterBanner), { ssr: false })

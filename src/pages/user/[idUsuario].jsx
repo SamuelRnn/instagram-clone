@@ -1,9 +1,9 @@
 import { Layout, ProfilePostPreview } from '@/components'
+import { AiFillEdit } from 'react-icons/ai'
 import { prisma } from '@/config'
 import { useSessionStore } from '@/store'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AiFillEdit } from 'react-icons/ai'
 
 export default function UserProfile({ user }) {
 	const currentUser = useSessionStore(state => state.user)
@@ -17,7 +17,7 @@ export default function UserProfile({ user }) {
 						alt={user.user_name}
 						width={150}
 						height={150}
-						className="rounded-full outline outline-2 outline-zinc-700 overflow-hidden min-w-[80px] sm:min-w-[150px] aspect-square "
+						className="rounded-full outline outline-2 outline-zinc-700 overflow-hidden min-w-[80px] sm:min-w-[150px] aspect-square object-cover"
 					/>
 					<div className="min-w-[180px] mt-2">
 						<div className="flex items-center gap-2 text-lg">

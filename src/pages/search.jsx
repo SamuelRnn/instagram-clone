@@ -1,7 +1,7 @@
-import { HomePostCard, Layout } from '@/components'
+import { PostCard, Layout } from '@/components'
+import { AiOutlineSearch } from 'react-icons/ai'
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
 
 export default function Search() {
 	const [posts, setPosts] = useState(null)
@@ -39,10 +39,10 @@ export default function Search() {
 						<AiOutlineSearch className="text-3xl m-2" />
 					</button>
 				</form>
-				{posts && !posts.length && <HomePostCard skeleton />}
-				{posts && !posts.length && <HomePostCard skeleton />}
+				{posts && !posts.length && <PostCard skeleton />}
+				{posts && !posts.length && <PostCard skeleton />}
 				{posts?.map(post => (
-					<HomePostCard post={post} key={post.id} />
+					<PostCard post={post} key={post.id} />
 				))}
 				{!posts && !noResults && (
 					<p className="text-center text-zinc-500">

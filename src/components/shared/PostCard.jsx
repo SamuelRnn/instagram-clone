@@ -1,23 +1,29 @@
+import { Loader } from '@/components'
 import { AiFillHeart } from 'react-icons/ai'
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { MdInsertComment } from 'react-icons/md'
+import { useSessionStore } from '@/store'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSessionStore } from '@/store'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-export default function HomePostCard({
+export default function PostCard({
 	post: postInitialData,
 	skeleton = false,
 	full = false,
 }) {
 	const [post, setPost] = useState(postInitialData)
+	const [isLoading, setLoading] = useState(false)
 	const user = useSessionStore(state => state.user)
 	const commentRef = useRef(null)
+	const router = useRouter()
 
 	const addComment = async () => {
+		setLoading(true)
+		commentRef.current.blur()
 		const { data } = await axios.post(`/api/posts/${post.id}/comments`, {
 			userId: user.id,
 			content: commentRef.current.value,
@@ -25,8 +31,8 @@ export default function HomePostCard({
 		if (data.ok) {
 			setPost(data.post)
 			commentRef.current.value = ''
-			commentRef.current.blur()
 		}
+		setLoading(false)
 	}
 	const deleteComment = async commentId => {
 		const { data } = await axios.delete(`/api/posts/${post.id}/comments`, {
@@ -195,13 +201,17 @@ export default function HomePostCard({
 									placeholder="Agrega un comentario"
 									maxLength={200}
 								/>
-								<div className="grid grid-cols-2 gap-4">
-									<button className="button py-3 px-2">Reiniciar</button>
+								<div className="grid grid-cols-2 gap-4 mt-2">
+									<button className="button h-12" onClick={() => router.back()}>
+										Volver
+									</button>
 									<button
-										className="button-light py-3 px-2"
+										type="submit"
+										className="button-light h-12 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
 										onClick={addComment}
 									>
-										Aceptar
+										Comentar
+										{isLoading && <Loader />}
 									</button>
 								</div>
 							</>

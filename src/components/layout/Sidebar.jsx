@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import white_text_logo from '../../../public/assets/white-text-logo.svg'
 import {
 	AiFillHome,
@@ -10,10 +9,10 @@ import {
 } from 'react-icons/ai'
 import { BsFillImageFill } from 'react-icons/bs'
 import { BiLogOut } from 'react-icons/bi'
-import Link from 'next/link'
-// import dynamic from 'next/dynamic'
-import { useEffect } from 'react'
 import { useSidebarStore } from '@/store'
+import Link from 'next/link'
+import { useEffect } from 'react'
+import Image from 'next/image'
 import axios from 'axios'
 
 export default function Sidebar({ user, openCreateModal }) {
@@ -131,4 +130,3 @@ export default function Sidebar({ user, openCreateModal }) {
 		</>
 	)
 }
-// export default dynamic(() => Promise.resolve(Sidebar), { ssr: false })

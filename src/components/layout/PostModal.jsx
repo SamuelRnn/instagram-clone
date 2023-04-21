@@ -1,11 +1,11 @@
+import { Loader } from '@/components'
+import { AiOutlineClose } from 'react-icons/ai'
+import { uploadImage } from '@/utils'
 import { useSessionStore } from '@/store'
 import Image from 'next/image'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { AiOutlineClose } from 'react-icons/ai'
-import Loader from './_shared/Loader'
-import { uploadImage } from '@/utils'
-import axios from 'axios'
 
 export default function PostModal({ closeCreateModal }) {
 	const user = useSessionStore(state => state.user)
@@ -19,11 +19,11 @@ export default function PostModal({ closeCreateModal }) {
 		setImage(event.target.files[0])
 		setImagePreview(URL.createObjectURL(event.target.files[0]))
 	}
-	const onTextChange = event => setText(event.target.value)
-
+	const onTextChange = event => {
+		setText(event.target.value)
+	}
 	const onSubmit = async event => {
 		event.preventDefault()
-
 		try {
 			setLoading(true)
 			const cdnURL = await uploadImage(image)

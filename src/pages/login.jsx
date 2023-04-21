@@ -1,12 +1,12 @@
-import Image from 'next/image'
 import text_logo from '../../public/assets/text-logo.svg'
+import { Loader } from '@/components'
+import { useSessionStore } from '@/store'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useSessionStore } from '@/store'
 import { toast } from 'react-hot-toast'
-import Loader from '@/components/_shared/Loader'
 
 export default function Login() {
 	const [isLoading, setLoading] = useState(false)

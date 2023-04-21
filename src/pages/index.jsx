@@ -1,4 +1,4 @@
-import { Layout, HomePostCard } from '@/components/'
+import { Layout, PostCard } from '@/components/'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
@@ -19,10 +19,10 @@ export default function Home() {
 		<Layout>
 			<div className="w-full">
 				<div className="min-h-screen w-box mx-auto">
-					{!posts.length && <HomePostCard skeleton />}
-					{!posts.length && <HomePostCard skeleton />}
+					{!posts.length && <PostCard skeleton />}
+					{!posts.length && <PostCard skeleton />}
 					{posts.map(post => (
-						<HomePostCard post={post} key={post.id} />
+						<PostCard post={post} key={post.id} />
 					))}
 				</div>
 			</div>

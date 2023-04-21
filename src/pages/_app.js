@@ -1,5 +1,5 @@
-import { useSessionStore } from '@/store'
 import '@/styles/globals.css'
+import { useSessionStore } from '@/store'
 import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'

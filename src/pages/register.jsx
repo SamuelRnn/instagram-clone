@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import text_logo from '../../public/assets/text-logo.svg'
+import { Loader } from '@/components'
+import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import Loader from '@/components/_shared/Loader'
 
 export default function Register() {
 	const [isLoading, setLoading] = useState(false)

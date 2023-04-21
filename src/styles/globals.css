@@ -9,6 +9,7 @@ body {
 .input {
 	@apply py-3 px-3 rounded-lg bg-transparent focus:bg-white/5 outline outline-1 outline-zinc-700;
 }
+
 .nav-action {
 	@apply flex gap-4 items-center hover:bg-white/5 px-4 py-3 rounded-md transition-colors ease-out cursor-pointer;
 }
@@ -19,14 +20,15 @@ body {
 .post-actions {
 	@apply hover:text-main-accent transition-colors ease-out;
 }
+
+.button {
+	@apply bg-zinc-800 hover:bg-opacity-75 rounded-lg;
+}
 .button-light {
 	@apply bg-main-accent hover:bg-opacity-75 rounded-lg;
 }
 .button-light-variant {
 	@apply bg-main-accent-variant hover:bg-opacity-75 rounded-lg;
-}
-.button {
-	@apply bg-zinc-800 hover:bg-opacity-75 rounded-lg;
 }
 
 .custom-rotate {

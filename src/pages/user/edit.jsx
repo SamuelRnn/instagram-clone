@@ -1,5 +1,4 @@
-import { Layout } from '@/components'
-import Loader from '@/components/_shared/Loader'
+import { Layout, Loader } from '@/components'
 import { prisma } from '@/config'
 import { uploadImage, verifyToken } from '@/utils'
 import axios from 'axios'

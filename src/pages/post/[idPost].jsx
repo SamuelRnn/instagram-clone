@@ -1,11 +1,11 @@
-import { HomePostCard, Layout } from '@/components'
+import { PostCard, Layout } from '@/components'
 import { prisma } from '@/config'
 
 export default function Post({ post }) {
 	return (
 		<Layout>
 			<div className="mx-auto w-box">
-				<HomePostCard post={post} full />
+				<PostCard post={post} full />
 			</div>
 		</Layout>
 	)

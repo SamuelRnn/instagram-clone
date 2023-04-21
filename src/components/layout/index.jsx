@@ -1,7 +1,7 @@
 import Sidebar from './Sidebar'
 import RegisterBanner from './RegisterBanner'
+import PostModal from './PostModal'
 import { useSessionStore } from '@/store'
-import PostModal from '../PostModal'
 import { useState } from 'react'
 
 export default function Layout({ children }) {
@@ -9,6 +9,7 @@ export default function Layout({ children }) {
 	const [createModalIsOpen, setCreateModalIsOpen] = useState(false)
 	const openCreateModal = () => setCreateModalIsOpen(true)
 	const closeCreateModal = () => setCreateModalIsOpen(false)
+
 	return (
 		<>
 			<div className="grid grid-cols-1 md:grid-cols-main-layout">
