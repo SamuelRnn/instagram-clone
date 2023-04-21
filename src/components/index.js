@@ -1,4 +1,4 @@
 export { default as ProfilePostPreview } from './ProfilePostPreview'
-export * from './index'
 export { default as Layout } from './layout'
-export * from './shared'
+export { default as Loader } from './shared/Loader'
+export { default as PostCard } from './shared/PostCard'
