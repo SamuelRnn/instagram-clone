@@ -10,7 +10,7 @@ export default function Home() {
 			const { data } = await axios.get('/api/posts')
 			setTimeout(() => {
 				setPosts(data.posts)
-			}, 2000)
+			}, 1000)
 		}
 		getPosts()
 	}, [])

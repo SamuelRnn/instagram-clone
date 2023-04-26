@@ -5,10 +5,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
+import { RouteChangeBar } from '@/components'
+import { AnimatePresence } from 'framer-motion'
 
 export default function App({ Component, pageProps }) {
 	const [loader, setLoader] = useState(true)
 	const setUser = useSessionStore(state => state.setUser)
+
+	const router = useRouter()
+	const [isRouteChange, setIsRouteChange] = useState(false)
+	const [routeLoaded, setRouteLoaded] = useState(false)
 
 	useEffect(() => {
 		const getSession = async () => {
@@ -22,7 +29,24 @@ export default function App({ Component, pageProps }) {
 				document.body.style.overflow = 'auto'
 			}, 1500)
 		}
+
+		const handleRouteChangeStart = () => {
+			setIsRouteChange(true)
+		}
+		const handleRouteChangeComplete = () => {
+			setRouteLoaded(true)
+			setTimeout(() => setIsRouteChange(false), 200)
+		}
+		// verifying session token
 		getSession()
+
+		// router events subscribing
+		router.events.on('routeChangeStart', handleRouteChangeStart)
+		router.events.on('routeChangeComplete', handleRouteChangeComplete)
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChangeStart)
+			router.events.off('routeChangeComplete', handleRouteChangeComplete)
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
@@ -54,6 +78,14 @@ export default function App({ Component, pageProps }) {
 					},
 				}}
 			/>
+			<AnimatePresence>
+				{isRouteChange && (
+					<RouteChangeBar
+						routeLoaded={routeLoaded}
+						setRouteLoaded={setRouteLoaded}
+					/>
+				)}
+			</AnimatePresence>
 		</>
 	)
 }

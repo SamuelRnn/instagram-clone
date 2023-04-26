@@ -83,7 +83,7 @@ export default function PostCard({
 					<Link href={`/user/${post?.author.id}`}>
 						<Image
 							src={post?.author.avatar || '/assets/logo.svg'}
-							alt="profile name"
+							alt="profile image"
 							width={40}
 							height={40}
 							className="rounded-full outline outline-2 outline-zinc-700 text-xs grid place-content-center object-cover w-10 h-10"
