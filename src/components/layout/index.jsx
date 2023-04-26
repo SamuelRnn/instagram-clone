@@ -3,6 +3,7 @@ import RegisterBanner from './RegisterBanner'
 import PostModal from './PostModal'
 import { useSessionStore } from '@/store'
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 export default function Layout({ children }) {
 	const user = useSessionStore(state => state.user)
@@ -19,7 +20,9 @@ export default function Layout({ children }) {
 				</main>
 			</div>
 			{!user && <RegisterBanner />}
-			{createModalIsOpen && <PostModal closeCreateModal={closeCreateModal} />}
+			<AnimatePresence>
+				{createModalIsOpen && <PostModal closeCreateModal={closeCreateModal} />}
+			</AnimatePresence>
 		</>
 	)
 }

@@ -1,11 +1,12 @@
 import { Loader } from '@/components'
-import { AiOutlineClose } from 'react-icons/ai'
+import { IoMdClose } from 'react-icons/io'
 import { uploadImage } from '@/utils'
 import { useSessionStore } from '@/store'
 import Image from 'next/image'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { motion } from 'framer-motion'
 
 export default function PostModal({ closeCreateModal }) {
 	const user = useSessionStore(state => state.user)
@@ -46,15 +47,25 @@ export default function PostModal({ closeCreateModal }) {
 	}, [])
 
 	return (
-		<div className="fixed z-50 h-screen w-full top-0 left-0 bg-black/40 flex items-center">
-			<div className="mx-auto flex flex-col items-center bg-main-black p-4 pt-0 border rounded-md border-zinc-700 h-fit">
+		<motion.div
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			transition={{ duration: 0.1 }}
+			className="fixed z-40 h-screen w-full top-0 left-0 bg-black/50 flex items-center backdrop-blur-sm"
+		>
+			<motion.div
+				initial={{ scale: 0.9, y: 40 }}
+				whileInView={{ scale: 1, y: 0 }}
+				transition={{ duration: 0.2, type: 'spring', bounce: 0 }}
+				className="mx-auto flex flex-col items-center bg-main-black pt-0 border rounded-md border-zinc-700 h-fit"
+			>
 				<div className="mb-4 text-center py-2 border-b border-zinc-700 w-full relative">
 					<button className="absolute right-2 top-3" onClick={closeCreateModal}>
-						<AiOutlineClose className="text-xl" />
+						<IoMdClose className="text-xl text-zinc-200" />
 					</button>
 					<p>Agrega una publicación</p>
 				</div>
-				<form onSubmit={onSubmit} className="flex flex-wrap w-full gap-4">
+				<form onSubmit={onSubmit} className="flex flex-wrap w-full gap-4 p-4">
 					<label
 						className="cursor-pointer rounded-lg border border-zinc-700 aspect-square overflow-hidden w-[280px] mx-auto relative grid place-content-center hover:bg-main-black-accent"
 						title="subir imagen"
@@ -94,7 +105,7 @@ export default function PostModal({ closeCreateModal }) {
 						</button>
 					</div>
 				</form>
-			</div>
-		</div>
+			</motion.div>
+		</motion.div>
 	)
 }

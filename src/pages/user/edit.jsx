@@ -3,10 +3,12 @@ import { prisma } from '@/config'
 import { uploadImage, verifyToken } from '@/utils'
 import axios from 'axios'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 export default function Edit({ user }) {
+	const router = useRouter()
 	const [form, setForm] = useState({
 		...user,
 		password: '',
@@ -15,7 +17,7 @@ export default function Edit({ user }) {
 	const [hasChanged, setChanged] = useState(false)
 	const [imagePreview, setImagePreview] = useState(user.avatar)
 	const [isLoading, setLoading] = useState(false)
-
+	const back = () => router.back()
 	const onSubmit = async event => {
 		event.preventDefault()
 
@@ -131,17 +133,7 @@ export default function Edit({ user }) {
 						/>
 					</label>
 					<div className="grid grid-cols-2 mt-4 gap-4">
-						<button
-							type="button"
-							className="button py-3 w-full"
-							onClick={() =>
-								setForm({
-									...user,
-									password: '',
-									confirm_password: '',
-								})
-							}
-						>
+						<button type="button" className="button py-3 w-full" onClick={back}>
 							Cancelar
 						</button>
 						<button
