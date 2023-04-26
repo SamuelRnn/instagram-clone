@@ -101,7 +101,7 @@ export default function Sidebar({ user, openCreateModal }) {
 										alt="user avatar"
 										width={50}
 										height={50}
-										className="object-cover rounded-full outline outline-2 outline-zinc-700 overflow-hidden cursor-pointer"
+										className="w-[50px] h-[50px] object-cover rounded-full outline outline-2 outline-zinc-700 overflow-hidden cursor-pointer"
 									/>
 								</Link>
 								<div>

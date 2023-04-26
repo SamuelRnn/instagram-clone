@@ -153,9 +153,9 @@ export default function PostCard({
 					<span className="text-zinc-200 font-bold">
 						<button>{post?.author.user_name}</button>
 					</span>{' '}
-					{!full && post?.text && post.text.slice(0, 100)}
+					{!full && post?.text && post?.text.slice(0, 100)}
 					{post?.text.length > 100 && '... '}
-					{!full && post?.text && post.text.length > 100 && (
+					{!full && post?.text && post?.text.length > 100 && (
 						<Link href={`/post/${post?.id}`} title="ver post completo">
 							<button className="hover:underline text-zinc-300">
 								Leer más
