@@ -78,7 +78,7 @@ export default function PostCard({
 		<div className="w-full flex flex-col">
 			<div className="flex items-center py-4 gap-3 text-sm">
 				{skeleton ? (
-					<div className="w-10 h-10 rounded-full bg-zinc-800" />
+					<div className="w-10 h-10 rounded-full bg-zinc-800 anim-skeleton" />
 				) : (
 					<Link href={`/user/${post?.author.id}`}>
 						<Image
@@ -91,16 +91,20 @@ export default function PostCard({
 					</Link>
 				)}
 				{skeleton ? (
-					<p className="h-4 w-32 bg-zinc-800 rounded-md"></p>
+					<p className="h-4 w-32 bg-zinc-800 rounded-md anim-skeleton"></p>
 				) : (
 					<Link href={`/user/${post?.author.id}`}>
 						<p>{post?.author.user_name}</p>
 					</Link>
 				)}
 			</div>
-			<div className="bg-main-black-accent overflow-hidden border border-zinc-700 aspect-square rounded-md">
+			<div
+				className={`bg-main-black-accent overflow-hidden border ${
+					skeleton ? 'border-transparent' : 'border-zinc-700'
+				} aspect-square rounded-md`}
+			>
 				{skeleton ? (
-					<div className="w-full h-full bg-zinc-800"></div>
+					<div className="w-full h-full bg-zinc-800 anim-skeleton"></div>
 				) : (
 					<Link
 						href={`/post/${post?.id}`}
@@ -147,7 +151,7 @@ export default function PostCard({
 				<RiSendPlaneFill className="post-actions" />
 			</div>
 			{skeleton ? (
-				<div className="w-full rounded-md h-14 bg-zinc-800"></div>
+				<div className="w-full rounded-md h-14 bg-zinc-800 anim-skeleton"></div>
 			) : (
 				<p className="text-zinc-400 text-sm">
 					<span className="text-zinc-200 font-bold">

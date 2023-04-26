@@ -31,6 +31,21 @@ body {
 	@apply bg-main-accent-variant hover:bg-opacity-75 rounded-lg;
 }
 
+.anim-skeleton {
+	animation: skeleton 1400ms infinite ease-in-out;
+}
+@keyframes skeleton {
+	0% {
+		@apply bg-zinc-800;
+	}
+	50% {
+		background-color: rgb(50 50 54);
+	}
+	0% {
+		@apply bg-zinc-800;
+	}
+}
+
 .custom-rotate {
 	animation: spin 3s linear infinite;
 }
