@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }) {
 			setTimeout(() => {
 				setLoader(false)
 				document.body.style.overflow = 'auto'
-			}, 1500)
+			}, 500)
 		}
 
 		const handleRouteChangeStart = () => {

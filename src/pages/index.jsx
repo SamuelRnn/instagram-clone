@@ -19,11 +19,11 @@ export default function Home() {
 		<Layout>
 			<div className="w-full">
 				<div className="min-h-screen w-box mx-auto">
-					{!posts.length && <PostCard skeleton />}
-					{!posts.length && <PostCard skeleton />}
 					{posts.map(post => (
 						<PostCard post={post} key={post.id} />
 					))}
+					{!posts.length && <PostCard skeleton />}
+					{!posts.length && <PostCard skeleton />}
 				</div>
 			</div>
 		</Layout>

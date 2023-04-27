@@ -10,14 +10,14 @@ export default function UserProfile({ user }) {
 
 	return (
 		<Layout>
-			<div className="pb-6 border-b border-zinc-700 w-profile mx-auto">
-				<div className="mx-auto max-w-[600px] flex gap-6">
+			<div className="pb-6 w-profile mx-auto">
+				<div className="mx-auto max-w-[600px] flex gap-4 sm:gap-6">
 					<Image
 						src={user.avatar}
 						alt={user.user_name}
 						width={150}
 						height={150}
-						className="rounded-full outline outline-2 outline-zinc-700 overflow-hidden min-w-[80px] sm:min-w-[150px] aspect-square object-cover"
+						className="rounded-full outline outline-2 outline-zinc-700 overflow-hidden w-[80px] sm:w-[150px] aspect-square object-cover"
 					/>
 					<div className="min-w-[180px] mt-2">
 						<div className="flex items-center gap-2 text-lg">
@@ -43,8 +43,9 @@ export default function UserProfile({ user }) {
 				</div>
 				<p className="sm:hidden text-sm mt-4">{user.about_me}</p>
 			</div>
+			<div className="mx-auto max-w-[700px] border-b border-zinc-700" />
 			{/* posts container */}
-			<div className="w-full grid grid-cols-3 gap-1 mt-8 max-w-[700px] mx-auto">
+			<div className="w-full grid grid-cols-3 gap-2 mt-8 max-w-[700px] mx-auto">
 				{user.posts.map(post => (
 					<ProfilePostPreview key={post.id} post={post} />
 				))}

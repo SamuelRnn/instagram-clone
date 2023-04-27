@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { IoMdArrowRoundBack } from 'react-icons/io'
+import { motion } from 'framer-motion'
 
 export default function PostCard({
 	post: postInitialData,
@@ -17,20 +19,23 @@ export default function PostCard({
 }) {
 	const [post, setPost] = useState(postInitialData)
 	const [isLoading, setLoading] = useState(false)
+	const [isLikeLoading, setLikeLoading] = useState(false)
 	const user = useSessionStore(state => state.user)
+	const [comment, setComment] = useState('')
 	const commentRef = useRef(null)
 	const router = useRouter()
 
+	//comment handlers
 	const addComment = async () => {
 		setLoading(true)
 		commentRef.current.blur()
 		const { data } = await axios.post(`/api/posts/${post.id}/comments`, {
 			userId: user.id,
-			content: commentRef.current.value,
+			content: comment,
 		})
 		if (data.ok) {
 			setPost(data.post)
-			commentRef.current.value = ''
+			setComment('')
 		}
 		setLoading(false)
 	}
@@ -44,7 +49,10 @@ export default function PostCard({
 			setPost(data.post)
 		}
 	}
+
+	//like handlers
 	const likeAction = () => {
+		setLikeLoading(true)
 		const like = post.liked_by.find(currUser => currUser.id_user === user.id)
 		if (!user) {
 			return toast.error('Inicia sesión antes!')
@@ -62,6 +70,7 @@ export default function PostCard({
 		if (data.ok) {
 			setPost(data.post)
 		}
+		setLikeLoading(false)
 	}
 	const deleteLike = async () => {
 		const { data } = await axios.delete(`/api/posts/${post.id}/likes`, {
@@ -72,6 +81,17 @@ export default function PostCard({
 		if (data.ok) {
 			setPost(data.post)
 		}
+		setLikeLoading(false)
+	}
+
+	//clipboard handlers
+	const copyPostLink = async url => {
+		try {
+			await navigator.clipboard.writeText(url)
+			toast.success('Enlace del post copiado correctamente al portapapeles', {
+				id: 'clipboard',
+			})
+		} catch (err) {}
 	}
 
 	return (
@@ -82,7 +102,7 @@ export default function PostCard({
 				) : (
 					<Link href={`/user/${post?.author.id}`}>
 						<Image
-							src={post?.author.avatar || '/assets/logo.svg'}
+							src={post?.author.avatar}
 							alt="profile image"
 							width={40}
 							height={40}
@@ -99,8 +119,8 @@ export default function PostCard({
 				)}
 			</div>
 			<div
-				className={`bg-main-black-accent overflow-hidden border ${
-					skeleton ? 'border-transparent' : 'border-zinc-700'
+				className={`bg-main-black-accent overflow-hidden outline outline-1 ${
+					skeleton ? 'outline-none' : 'outline-zinc-700'
 				} aspect-square rounded-md`}
 			>
 				{skeleton ? (
@@ -112,11 +132,11 @@ export default function PostCard({
 						title="ver post completo"
 					>
 						<Image
-							src={post?.image}
-							width={800}
-							height={800}
+							src={post?.image + '-/scale_crop/700x700/center/'}
+							width={500}
+							height={500}
 							alt={post?.text ?? 'post image'}
-							className=" object-contain"
+							className=" object-cover w-full h-full"
 						/>
 					</Link>
 				)}
@@ -124,7 +144,14 @@ export default function PostCard({
 			<div className="py-3 text-2xl flex justify-between">
 				<div className="flex gap-3">
 					<div className="flex gap-1">
-						<button onClick={likeAction} className="">
+						<motion.button
+							onClick={likeAction}
+							whileTap={{
+								rotate: -30,
+								scale: 0.8,
+								transition: { duration: 0.1 },
+							}}
+						>
 							<AiFillHeart
 								className={`post-actions ${
 									user &&
@@ -134,9 +161,13 @@ export default function PostCard({
 									'text-red-500'
 								}`}
 							/>
-						</button>
-						<span className="text-sm select-none">
-							{post?.liked_by.length ?? 0}
+						</motion.button>
+						<span className="text-sm select-none w-3">
+							{isLikeLoading ? (
+								<Loader height={12} />
+							) : (
+								<span>{post?.liked_by.length ?? 0}</span>
+							)}
 						</span>
 					</div>
 					<div className="flex gap-1">
@@ -148,7 +179,20 @@ export default function PostCard({
 						</span>
 					</div>
 				</div>
-				<RiSendPlaneFill className="post-actions" />
+				<motion.button
+					whileTap={{
+						rotate: -30,
+						scale: 0.8,
+						transition: { duration: 0.1 },
+					}}
+					title="copiar enlace del post al portapapeles"
+					className="post-actions"
+					onClick={() =>
+						copyPostLink(window.location.origin + `/post/${post?.id}`)
+					}
+				>
+					<RiSendPlaneFill />
+				</motion.button>
 			</div>
 			{skeleton ? (
 				<div className="w-full rounded-md h-14 bg-zinc-800 anim-skeleton"></div>
@@ -201,16 +245,22 @@ export default function PostCard({
 							<>
 								<textarea
 									ref={commentRef}
+									onChange={e => setComment(e.target.value)}
+									value={comment}
 									className="input resize-none w-full h-40"
 									placeholder="Agrega un comentario"
 									maxLength={200}
 								/>
 								<div className="grid grid-cols-2 gap-4 mt-2">
-									<button className="button h-12" onClick={() => router.back()}>
-										Volver
+									<button
+										className="button h-12 flex items-center justify-center"
+										onClick={() => router.back()}
+									>
+										<IoMdArrowRoundBack className="translate-y-[1px] mr-1" />
+										<span>Volver</span>
 									</button>
 									<button
-										type="submit"
+										disabled={!comment || isLoading}
 										className="button-light h-12 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
 										onClick={addComment}
 									>

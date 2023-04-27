@@ -42,8 +42,10 @@ export default function PostModal({ closeCreateModal }) {
 	}
 
 	useEffect(() => {
-		document.body.style.overflow = 'hidden'
-		return () => (document.body.style.overflow = 'auto')
+		document.body.style.overflowY = 'hidden'
+		return () => {
+			document.body.style.overflowY = 'auto'
+		}
 	}, [])
 
 	return (
@@ -80,8 +82,9 @@ export default function PostModal({ closeCreateModal }) {
 							<Image
 								src={imagePreview}
 								alt="image preview"
-								fill
-								className="object-contain"
+								height={280}
+								width={280}
+								className="object-cover h-[280px] w-[280px]"
 							/>
 						) : (
 							<p className="text-zinc-500">Agregar una imagen</p>

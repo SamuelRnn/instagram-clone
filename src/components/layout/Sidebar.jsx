@@ -42,7 +42,7 @@ export default function Sidebar({ user, openCreateModal }) {
 	return (
 		<>
 			<div className="fixed md:hidden top-0 w-full z-30 bg-main-black-accent">
-				<div className="w-box mx-auto flex items-center justify-between">
+				<div className="w-profile mx-auto flex items-center justify-between">
 					<Link href="/">
 						<AiFillInstagram className="text-3xl my-4" />
 					</Link>
@@ -80,10 +80,10 @@ export default function Sidebar({ user, openCreateModal }) {
 							</Link>
 							{user && (
 								<>
-									<div className="nav-action">
+									<Link className="nav-action" href="/user/likes">
 										<AiFillHeart className="text-2xl" />
 										Likes
-									</div>
+									</Link>
 									<button onClick={openCreateModal} className="nav-action">
 										<BsFillImageFill className="text-2xl" />
 										Crear{' '}
@@ -97,7 +97,7 @@ export default function Sidebar({ user, openCreateModal }) {
 							<div className="flex items-center gap-3">
 								<Link href={`/user/${user.id}`}>
 									<Image
-										src={user.avatar ?? '/assets/user.png'}
+										src={user.avatar}
 										alt="user avatar"
 										width={50}
 										height={50}

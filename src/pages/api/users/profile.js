@@ -12,24 +12,12 @@ export default async function handler(req, res) {
 		}
 
 		const data = req.body
-
-		if (data.password !== data.confirm_password) {
-			return res.status(400).json({
-				message: 'Contraseña incorrecta o las contraseñas no coinciden!',
-			})
-		}
 		const user = await prisma.user.findFirst({
 			where: { id: data.id },
 		})
-		if (user.password !== data.password) {
-			return res.status(400).json({
-				message: 'Contraseña incorrecta o las contraseñas no coinciden!',
-			})
-		}
-		delete data.confirm_password
-		delete data.password
 
 		const changes = {}
+
 		for (let key in data) {
 			if (data[key] !== user[key]) {
 				changes[key] = data[key]

@@ -6,14 +6,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { IoMdArrowRoundBack } from 'react-icons/io'
 
 export default function Edit({ user }) {
 	const router = useRouter()
-	const [form, setForm] = useState({
-		...user,
-		password: '',
-		confirm_password: '',
-	})
+	const [form, setForm] = useState({ ...user })
 	const [hasChanged, setChanged] = useState(false)
 	const [imagePreview, setImagePreview] = useState(user.avatar)
 	const [isLoading, setLoading] = useState(false)
@@ -93,16 +90,6 @@ export default function Edit({ user }) {
 						/>
 					</label>
 					<label>
-						<p className="mb-2 text-zinc-400 text-sm">Descripción</p>
-						<textarea
-							type="text"
-							name="about_me"
-							value={form.about_me}
-							onChange={onTextChange}
-							className="input w-full h-40 resize-none"
-						/>
-					</label>
-					<label>
 						<p className="mb-2 text-zinc-400 text-sm">Email</p>
 						<input
 							type="email"
@@ -113,35 +100,26 @@ export default function Edit({ user }) {
 						/>
 					</label>
 					<label>
-						<p className="mb-2 text-zinc-400 text-sm">Escribe tu contraseña</p>
-						<input
-							type="password"
-							name="password"
-							value={form.password}
+						<p className="mb-2 text-zinc-400 text-sm">Descripción</p>
+						<textarea
+							type="text"
+							name="about_me"
+							value={form.about_me}
 							onChange={onTextChange}
-							className="input w-full"
-						/>
-					</label>
-					<label>
-						<p className="mb-2 text-zinc-400 text-sm">Confirma tu contraseña</p>
-						<input
-							type="password"
-							name="confirm_password"
-							value={form.confirm_password}
-							onChange={onTextChange}
-							className="input w-full"
+							className="input w-full h-40 resize-none"
 						/>
 					</label>
 					<div className="grid grid-cols-2 mt-4 gap-4">
-						<button type="button" className="button py-3 w-full" onClick={back}>
-							Cancelar
+						<button
+							type="button"
+							className="button h-12 flex items-center justify-center"
+							onClick={() => router.back()}
+						>
+							<IoMdArrowRoundBack className="translate-y-[1px] mr-1" />
+							<span>Volver</span>
 						</button>
 						<button
-							disabled={
-								!hasChanged ||
-								isLoading ||
-								form.password !== form.confirm_password
-							}
+							disabled={!hasChanged || isLoading}
 							type="submit"
 							className="button-light py-3 w-full disabled:cursor-not-allowed disabled:hover:bg-opacity-100 flex gap-x-2 items-center justify-center"
 						>

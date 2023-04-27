@@ -6,10 +6,10 @@ export default function ProfilePostPreview({ post }) {
 		<Link href={`/post/${post.id}`} className="overflow-hidden">
 			<div className="aspect-square outline outline-1 outline-zinc-700 relative transition-transform ease-out bg-zinc-800">
 				<Image
-					src={post.image}
+					src={post.image + '-/crop/1:1/center'}
 					alt="post image"
-					fill
-					className="object-cover object-center"
+					width={228}
+					height={228}
 				/>
 			</div>
 		</Link>
