@@ -11,6 +11,9 @@ import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { motion } from 'framer-motion'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/es'
 
 export default function PostCard({
 	post: postInitialData,
@@ -24,6 +27,8 @@ export default function PostCard({
 	const [comment, setComment] = useState('')
 	const commentRef = useRef(null)
 	const router = useRouter()
+
+	dayjs.extend(relativeTime).locale('es')
 
 	//comment handlers
 	const addComment = async () => {
@@ -96,7 +101,7 @@ export default function PostCard({
 
 	return (
 		<div className="w-full flex flex-col">
-			<div className="flex items-center py-4 gap-3 text-sm">
+			<div className="flex items-center py-4 gap-2 text-sm">
 				{skeleton ? (
 					<div className="w-10 h-10 rounded-full bg-zinc-800 anim-skeleton" />
 				) : (
@@ -113,9 +118,14 @@ export default function PostCard({
 				{skeleton ? (
 					<p className="h-4 w-32 bg-zinc-800 rounded-md anim-skeleton"></p>
 				) : (
-					<Link href={`/user/${post?.author.id}`}>
-						<p>{post?.author.user_name}</p>
-					</Link>
+					<>
+						<Link href={`/user/${post?.author.id}`}>
+							<p>{post?.author.user_name}</p>
+						</Link>
+						<span className="text-zinc-400">
+							{dayjs(post.created_at).fromNow(true)}
+						</span>
+					</>
 				)}
 			</div>
 			<div
