@@ -8,8 +8,8 @@ export default function ProfilePostPreview({ post }) {
 				<Image
 					src={post.image + '-/crop/1:1/center'}
 					alt="post image"
-					width={228}
-					height={228}
+					width={300}
+					height={300}
 				/>
 			</div>
 		</Link>

@@ -1,10 +1,15 @@
 import logo from '../../../public/assets/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { AiOutlineClose } from 'react-icons/ai'
 
-export default function RegisterBanner() {
+export default function RegisterBanner({ setUserClosed }) {
 	return (
 		<div className="fixed w-full bottom-0 left-0 h-44 bg-neutral-950/90 flex items-center z-[45]">
+			<button onClick={setUserClosed}>
+				<AiOutlineClose />
+			</button>
+
 			<div className="mx-auto w-banner flex flex-col md:flex-row justify-center md:justify-between">
 				<div className="flex max-md:mx-auto items-center">
 					<Image src={logo} alt="instagram logo" width={80} height={80} />

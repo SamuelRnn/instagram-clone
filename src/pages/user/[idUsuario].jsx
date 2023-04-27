@@ -43,9 +43,9 @@ export default function UserProfile({ user }) {
 				</div>
 				<p className="sm:hidden text-sm mt-4">{user.about_me}</p>
 			</div>
-			<div className="mx-auto max-w-[700px] border-b border-zinc-700" />
+			<div className="mx-auto max-w-[900px] border-b border-zinc-700" />
 			{/* posts container */}
-			<div className="w-full grid grid-cols-3 gap-2 mt-8 max-w-[700px] mx-auto">
+			<div className="w-full grid grid-cols-3 gap-2 mt-10 max-w-[900px] mx-auto">
 				{user.posts.map(post => (
 					<ProfilePostPreview key={post.id} post={post} />
 				))}

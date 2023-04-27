@@ -52,11 +52,11 @@ export default function PostCard({
 
 	//like handlers
 	const likeAction = () => {
-		setLikeLoading(true)
 		const like = post.liked_by.find(currUser => currUser.id_user === user.id)
 		if (!user) {
 			return toast.error('Inicia sesión antes!')
 		}
+		setLikeLoading(true)
 		if (like) {
 			deleteLike()
 		} else {
@@ -104,9 +104,9 @@ export default function PostCard({
 						<Image
 							src={post?.author.avatar}
 							alt="profile image"
-							width={40}
-							height={40}
-							className="rounded-full outline outline-2 outline-zinc-700 text-xs grid place-content-center object-cover w-10 h-10"
+							width={36}
+							height={36}
+							className="rounded-full outline outline-2 outline-zinc-700 text-xs grid place-content-center object-cover w-9 h-9"
 						/>
 					</Link>
 				)}
@@ -164,7 +164,9 @@ export default function PostCard({
 						</motion.button>
 						<span className="text-sm select-none w-3">
 							{isLikeLoading ? (
-								<Loader height={12} />
+								<div className="mt-0.5">
+									<Loader />
+								</div>
 							) : (
 								<span>{post?.liked_by.length ?? 0}</span>
 							)}

@@ -10,7 +10,7 @@ export default function Layout({ children }) {
 	const [createModalIsOpen, setCreateModalIsOpen] = useState(false)
 	const openCreateModal = () => setCreateModalIsOpen(true)
 	const closeCreateModal = () => setCreateModalIsOpen(false)
-
+	const [userClosed, setUserClosed] = useState(false)
 	return (
 		<>
 			<div className="grid grid-cols-1 md:grid-cols-main-layout">
@@ -19,7 +19,7 @@ export default function Layout({ children }) {
 					{children}
 				</main>
 			</div>
-			{!user && <RegisterBanner />}
+			{!user && !userClosed && <RegisterBanner setUserClosed={setUserClosed} />}
 			<AnimatePresence>
 				{createModalIsOpen && <PostModal closeCreateModal={closeCreateModal} />}
 			</AnimatePresence>

@@ -1,14 +1,18 @@
 import { Layout, ProfilePostPreview } from '@/components'
 import { prisma } from '@/config'
 import { verifyToken } from '@/utils'
+import { AiFillHeart } from 'react-icons/ai'
 
 export default function Likes({ user }) {
 	return (
 		<Layout>
-			<div className="w-full max-w-[700px] mx-auto border-b border-b-zinc-700 pb-4">
-				<h1 className="w-profile mx-auto">Your likes</h1>
+			<div className="w-full max-w-[900px] mx-auto border-b border-b-zinc-700 pb-4">
+				<h1 className="w-profile mx-auto flex items-center">
+					<AiFillHeart className="mr-2 text-xl" />
+					Your likes
+				</h1>
 			</div>
-			<div className="w-full grid grid-cols-3 gap-2 mt-8 max-w-[700px] mx-auto">
+			<div className="w-full grid grid-cols-3 gap-2 mt-8 max-w-[900px] mx-auto">
 				{user.likes.map(({ post }) => (
 					<ProfilePostPreview key={post.id} post={post} />
 				))}
