@@ -62,7 +62,7 @@ export default function Sidebar({ user, openCreateModal }) {
 					>
 						<AiOutlineClose className="text-2xl m-3 border-zinc-200" />
 					</button>
-					<div>
+					<div className="h-full relative">
 						<Image
 							src={white_text_logo}
 							alt="text instagram logo"
@@ -78,7 +78,7 @@ export default function Sidebar({ user, openCreateModal }) {
 								<AiOutlineSearch className="text-2xl" />
 								Búsqueda
 							</Link>
-							{user && (
+							{user ? (
 								<>
 									<Link className="nav-action" href="/user/likes">
 										<AiFillHeart className="text-2xl" />
@@ -89,6 +89,21 @@ export default function Sidebar({ user, openCreateModal }) {
 										Crear{' '}
 									</button>
 								</>
+							) : (
+								<div className="flex flex-col gap-3 font-bold mt-24 absolute w-full left-0 px-3 bottom-10">
+									<Link
+										href="/login"
+										className="button-light-variant px-3 py-2 grid place-content-center"
+									>
+										Iniciar Sesión
+									</Link>
+									<Link
+										href="/register"
+										className="button px-3 py-2 grid place-content-center"
+									>
+										Registrarse
+									</Link>
+								</div>
 							)}
 						</div>
 					</div>
