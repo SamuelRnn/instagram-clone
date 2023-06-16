@@ -2,7 +2,6 @@
 
 Full-stack clone of Instagram website, with a personal touch on UI.
 
-Visit the site on [instaclone-samuelrnn.vercel.app](https://instaclone-samuelrnn.vercel.app).
 
 ## Get the project running
 
